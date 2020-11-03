@@ -35,7 +35,10 @@ namespace SimpleInputNamespace
 		[SerializeField]
 		private RectTransform dynamicJoystickMovementArea;
 
-		[SerializeField]
+        [SerializeField]
+        private bool dynamicJoystickHide = true;
+
+        [SerializeField]
 		private bool canFollowPointer = false;
 #pragma warning restore 0649
 
@@ -194,7 +197,7 @@ namespace SimpleInputNamespace
 			m_value = Vector2.zero;
 
 			thumbTR.localPosition = Vector3.zero;
-			if( !isDynamicJoystick && canFollowPointer )
+            if ((!isDynamicJoystick && canFollowPointer) || !dynamicJoystickHide)
 				joystickTR.anchoredPosition = joystickInitialPos;
 
 			xAxis.value = 0f;
@@ -203,7 +206,7 @@ namespace SimpleInputNamespace
 
 		private void OnUpdate()
 		{
-			if( !isDynamicJoystick )
+            if (!isDynamicJoystick || !dynamicJoystickHide)
 				return;
 
 			if( joystickHeld )
